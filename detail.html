@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Destinasi | IndoExplore</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="assets/js/data.js" defer></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", function() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      const destination = destinations.find(dest => dest.id == id);
+
+      if (destination) {
+        document.querySelector(".detail-header img").src = destination.img;
+        document.querySelector(".detail-header h1").textContent = destination.name;
+        document.querySelector(".detail-description").textContent = destination.description;
+        document.querySelector(".detail-location").textContent = destination.location;
+        document.querySelector(".detail-hours").textContent = destination.openingHours;
+        document.querySelector(".detail-price").textContent = destination.ticketPrice;
+        document.querySelector(".detail-actions .btn-primary").href = destination.mapUrl;
+
+        // Tambah fasilitas ke dalam list
+        const facilityList = document.querySelector(".detail-facilities ul");
+        destination.facilities.forEach(facility => {
+          const li = document.createElement("li");
+          li.textContent = facility;
+          facilityList.appendChild(li);
+        });
+      }
+    });
+  </script>
+</head>
+<body class="detail-body">
+  <header class="navbar">
+    <div class="logo">IndoExplore</div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Back</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="detail-header">
+      <h1>Nama Destinasi</h1>
+      <img src="" alt="Gambar Destinasi" />
+    </section>
+
+    <section class="detail-info">
+      <h2>Deskripsi</h2>
+      <p class="detail-description">Loading...</p>
+
+      <h3>Lokasi</h3>
+      <p class="detail-location">Loading...</p>
+
+      <h3>Jam Buka</h3>
+      <p class="detail-hours">Loading...</p>
+
+      <h3>Harga Tiket</h3>
+      <p class="detail-price">Loading...</p>
+
+      <h3>Fasilitas</h3>
+      <div class="detail-facilities">
+        <ul></ul>
+      </div>
+    </section>
+
+    <section class="detail-actions">
+      <a href="#" class="btn-primary" target="_blank">Lihat di Peta</a>
+      <button class="btn-primary">Tambah ke Favorit</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SummitXplore. Jelajahi Tanpa Batas.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

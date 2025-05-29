@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | SummitXplore</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="assets/js/data.js" defer></script> <!-- Menghubungkan file data.js -->
+  <script defer>
+    document.addEventListener("DOMContentLoaded", function() {
+      const searchInput = document.querySelector("#search");
+      const container = document.querySelector(".destinasi-cards");
+
+      // Function to render destinations
+      const renderDestinations = (destinationsToRender) => {
+        container.innerHTML = ""; // Clear the existing cards
+        destinationsToRender.forEach(destination => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+          card.innerHTML = `
+            <h3 class="card-title">${destination.name}</h3>
+            <img src="${destination.image}" alt="${destination.name}" />
+            <a href="detail.html?id=${destination.id}" class="btn-primary">Lihat Detail</a>
+          `;
+          container.appendChild(card);
+        });
+      };
+
+      // Initial render of all destinations
+      renderDestinations(destinations.slice(0, 4));
+
+      // Event listener for search input
+      searchInput.addEventListener("input", function() {
+        const query = searchInput.value.toLowerCase();
+        const filteredDestinations = destinations.filter(destination => {
+          return destination.name.toLowerCase().includes(query) || 
+                 destination.description.toLowerCase().includes(query);
+        });
+        renderDestinations(filteredDestinations);
+      });
+    });
+  </script>
+</head>
+<body class="dashboard-body">
+  <header class="navbar">
+    <div class="logo">SummitXplore</div>
+    <nav class="nav-links">
+      <a href="index.html" class="btn-logout">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dashboard-welcome">
+      <h1>WELCOME</h1>
+      <p>Temukan destinasi wisata terbaik Indonesia yang telah Anda jelajahi atau favoritkan.</p>
+    </section>
+
+    <section class="dashboard-search">
+      <input type="text" id="search" placeholder="Cari destinasi wisata..." class="search-input" />
+    </section>
+
+    <section class="dashboard-list">
+      <h2>Destinasi Favorit</h2>
+      <div class="destinasi-cards"></div> <!-- Tempat untuk menampilkan destinasi -->
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SummitXplore. Jelajahi Tanpa Batas.</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
